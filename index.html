@@ -407,6 +407,49 @@
   }
   .footer-note{color:var(--muted);font-size:13px;}
   .footer-note .prompt-sym{margin-right:6px;}
+
+  /* ---------- RESUME MODAL ---------- */
+  .modal-overlay{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(5,7,11,0.72);
+    backdrop-filter:blur(3px);
+    z-index:200;
+    align-items:center;justify-content:center;
+    padding:24px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-card{
+    background:var(--panel,#0f131b);
+    border:1px solid var(--border);
+    border-radius:10px;
+    width:100%;max-width:720px;
+    max-height:88vh;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .modal-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;
+    border-bottom:1px solid var(--border);
+    font-family:var(--mono);font-size:13.5px;color:var(--muted);
+  }
+  .modal-header .modal-title{color:var(--text);}
+  .modal-actions{display:flex;gap:10px;align-items:center;}
+  .modal-actions a{
+    font-family:var(--mono);font-size:13px;
+    color:var(--accent);text-decoration:none;
+    border:1px solid var(--border);border-radius:6px;padding:6px 12px;
+  }
+  .modal-actions a:hover{border-color:var(--accent);}
+  .modal-close{
+    background:none;border:1px solid var(--border);color:var(--text);
+    width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:16px;line-height:1;
+  }
+  .modal-close:hover{border-color:var(--accent);color:var(--accent);}
+  .modal-body{flex:1;overflow:hidden;background:#000;}
+  .modal-body iframe{width:100%;height:100%;border:0;min-height:60vh;}
 </style>
 </head>
 <body>
@@ -438,6 +481,7 @@
     </div>
     <div class="hero-cta">
       <a class="btn primary" href="#projects" data-scroll="projects">View Projects</a>
+      <a class="btn" href="assets/Santosh_Mateti_Resume.pdf" id="resumeBtnHero">Resume</a>
       <a class="btn" href="https://github.com/santoshmateti9" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="https://www.linkedin.com/in/santosh-mateti-248129308/" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
@@ -578,7 +622,7 @@
       <a href="mailto:matetisantosh37@gmail.com" id="emailLink" title="matetisantosh37@gmail.com">Email</a>
       <a href="https://github.com/santoshmateti9" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/santosh-mateti-248129308/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.linkedin.com/in/santosh-mateti-248129308/" target="_blank" rel="noopener">Resume</a>
+      <a href="assets/Santosh_Mateti_Resume.pdf" id="resumeBtnFooter">Resume</a>
     </div>
     <div class="footer-note" style="margin-bottom:14px;">
       <span class="prompt-sym">$</span> <span id="emailReveal">matetisantosh37@gmail.com</span>
@@ -586,6 +630,21 @@
     <div class="footer-note"><span class="prompt-sym">$</span>echo "Thanks for stopping by" | cowsay --quiet 2>/dev/null || echo "Thanks for stopping by"</div>
   </footer>
 
+</div>
+
+<div class="modal-overlay" id="resumeModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <span class="modal-title">~/resume.pdf</span>
+      <div class="modal-actions">
+        <a href="assets/Santosh_Mateti_Resume.pdf" download>Download</a>
+        <button class="modal-close" id="resumeModalClose" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe id="resumeFrame" src="" title="Santosh Mateti Resume"></iframe>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -668,6 +727,39 @@
       }
     });
   }
+</script>
+
+<script>
+  // Resume modal — opens the PDF in a WhatsApp-style card popup instead
+  // of navigating away or opening a new tab.
+  const resumeModal = document.getElementById('resumeModal');
+  const resumeFrame = document.getElementById('resumeFrame');
+  const resumeModalClose = document.getElementById('resumeModalClose');
+  const RESUME_PATH = 'assets/Santosh_Mateti_Resume.pdf';
+
+  function openResumeModal(e){
+    if(e) e.preventDefault();
+    resumeFrame.src = RESUME_PATH;
+    resumeModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeResumeModal(){
+    resumeModal.classList.remove('open');
+    document.body.style.overflow = '';
+    resumeFrame.src = '';
+  }
+
+  ['resumeBtnHero','resumeBtnFooter'].forEach(function(id){
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('click', openResumeModal);
+  });
+  resumeModalClose.addEventListener('click', closeResumeModal);
+  resumeModal.addEventListener('click', function(e){
+    if(e.target === resumeModal) closeResumeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && resumeModal.classList.contains('open')) closeResumeModal();
+  });
 </script>
 
 </body>
