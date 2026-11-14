@@ -64,10 +64,13 @@ This portfolio is continuously updated as I build new Cloud and DevOps projects,
 https://santoshmateti9.github.io/portfolio/
 
 **LinkedIn**
-https://www.linkedin.com/in/santosh-mateti-248129308/
+https://www.linkedin.com/in/santoshmateti/
 
 **GitHub**
 https://github.com/santoshmateti9
+
+**Neetcode**
+https://neetcode.io/user/DaringGenin57
 
 ---
 
