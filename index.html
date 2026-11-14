@@ -482,7 +482,7 @@
     </div>
     <div class="hero-cta">
       <a class="btn primary" href="#projects" data-scroll="projects">View Projects</a>
-      <a class="btn" href="assets/Santosh_Mateti_Resume.pdf" id="resumeBtnHero">Resume</a>
+      <a class="btn" href="assets/Santosh_Mateti_Resume.docx" id="resumeBtnHero" download>Download Resume</a>
       <a class="btn" href="https://github.com/santoshmateti9" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="https://www.linkedin.com/in/santosh-mateti-248129308/" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
@@ -666,7 +666,7 @@
       <a href="mailto:matetisantosh37@gmail.com" id="emailLink" title="matetisantosh37@gmail.com">Email</a>
       <a href="https://github.com/santoshmateti9" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/santosh-mateti-248129308/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="assets/Santosh_Mateti_Resume.pdf" id="resumeBtnFooter">Resume</a>
+      <a href="assets/Santosh_Mateti_Resume.docx" id="resumeBtnFooter" download>Download Resume</a>
     </div>
     <div class="footer-note" style="margin-bottom:14px;">
       <span class="prompt-sym">$</span> <span id="emailReveal">matetisantosh37@gmail.com</span>
@@ -674,21 +674,6 @@
     <div class="footer-note"><span class="prompt-sym">$</span>echo "Thanks for stopping by" | cowsay --quiet 2>/dev/null || echo "Thanks for stopping by"</div>
   </footer>
 
-</div>
-
-<div class="modal-overlay" id="resumeModal">
-  <div class="modal-card">
-    <div class="modal-header">
-      <span class="modal-title">~/resume.pdf</span>
-      <div class="modal-actions">
-        <a href="assets/Santosh_Mateti_Resume.pdf" download>Download</a>
-        <button class="modal-close" id="resumeModalClose" aria-label="Close">✕</button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <iframe id="resumeFrame" src="" title="Santosh Mateti Resume"></iframe>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -773,38 +758,6 @@
   }
 </script>
 
-<script>
-  // Resume modal — opens the PDF in a WhatsApp-style card popup instead
-  // of navigating away or opening a new tab.
-  const resumeModal = document.getElementById('resumeModal');
-  const resumeFrame = document.getElementById('resumeFrame');
-  const resumeModalClose = document.getElementById('resumeModalClose');
-  const RESUME_PATH = 'assets/Santosh_Mateti_Resume.pdf';
-
-  function openResumeModal(e){
-    if(e) e.preventDefault();
-    resumeFrame.src = RESUME_PATH;
-    resumeModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeResumeModal(){
-    resumeModal.classList.remove('open');
-    document.body.style.overflow = '';
-    resumeFrame.src = '';
-  }
-
-  ['resumeBtnHero','resumeBtnFooter'].forEach(function(id){
-    const el = document.getElementById(id);
-    if(el) el.addEventListener('click', openResumeModal);
-  });
-  resumeModalClose.addEventListener('click', closeResumeModal);
-  resumeModal.addEventListener('click', function(e){
-    if(e.target === resumeModal) closeResumeModal();
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && resumeModal.classList.contains('open')) closeResumeModal();
-  });
-</script>
 
 </body>
 </html>
